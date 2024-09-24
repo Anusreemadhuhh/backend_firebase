@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "766674874660",
+    "firebase_url": "https://backendwrk-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "backendwrk",
+    "storage_bucket": "backendwrk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766674874660:android:e609b2b0b7f4f21ffd03b1",
+        "android_client_info": {
+          "package_name": "com.example.backend_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYftwROIf-M-c8YRC1kY24qPfvidkiDAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
