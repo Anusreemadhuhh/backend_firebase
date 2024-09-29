@@ -1,3 +1,5 @@
+import 'package:backend_firebase/Biodata_crud/Bio_1.dart';
+import 'package:backend_firebase/Biodata_crud/Bio_2.dart';
 import 'package:backend_firebase/CRUD_uis/crud_ui1.dart';
 import 'package:backend_firebase/CRUD_uis/crud_ui2.dart';
 import 'package:backend_firebase/CRUD_uis/crud_ui3.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: crud_add(),
+      home: secondpage2(),
     );
   }
 }

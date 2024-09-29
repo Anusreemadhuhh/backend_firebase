@@ -62,13 +62,9 @@ class _crud_addState extends State<crud_add> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 80,
+                  height: 100,
                 ),
-                Container(
-                  height: 250,
-                  width: 250,
-                  color: Colors.blue,
-                ),
+                Icon(Icons.place_rounded,color: Colors.black,size: 150,),
                 SizedBox(
                   height: 20,
                 ),
@@ -148,6 +144,33 @@ class _crud_addState extends State<crud_add> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       )),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 90, right: 90),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return crud_view();
+                        },
+                      ));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 390,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                          child: Text(
+                            'View Details',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )),
                     ),
                   ),
                 ),

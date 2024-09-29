@@ -1,153 +1,50 @@
-import 'package:backend_firebase/CRUD_uis/crud_ui1.dart';
-import 'package:backend_firebase/CRUD_uis/crud_ui2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class crud_update extends StatefulWidget {
-  const crud_update({super.key});
+class Card_view extends StatefulWidget {
+  const Card_view({super.key, required this.id});
+  final id;
 
   @override
-  State<crud_update> createState() => _crud_updateState();
+  State<Card_view> createState() => _Card_viewState();
 }
 
-class _crud_updateState extends State<crud_update> {
-
-  var Name_ctrl = TextEditingController();
-  var Details_ctrl = TextEditingController();
-
-  Future<void> Add_data_sp() async {
-    SharedPreferences data = await SharedPreferences.getInstance();
-    data.setString("Name", Name_ctrl.text);
-    data.setString("Details", Details_ctrl.text);
-    print(
-        "Added Successfully/////////////////////////////////////////////////////");
+class _Card_viewState extends State<Card_view> {
+  Future<void>Getbyid() async{
+    Product =await FirebaseFirestore.instance.collection("Productcollection").doc(widget.id).get();//product nn paranja variable ll data nd
   }
-
-  final formkey = GlobalKey<FormState>();
-
-
-  void _showSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text('Enter The Values'),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Code to undo the change.
-        },
-      ),
-    );
-
-    // Find the ScaffoldMessenger in the widget tree and use it to show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
+  DocumentSnapshot?Product;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
+    return FutureBuilder(future: Getbyid(),builder: (context, snapshot) {
+      if(snapshot.connectionState==ConnectionState.waiting){
+        return CircularProgressIndicator(color: Colors.black,);
+      }
+      if(snapshot.hasError){
+        return Text("${snapshot.error}");
+      }
+   return   Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text("   PRODUCT UPDATE PAGE",style: TextStyle(color: Colors.black),),
-        ),
-        body: SingleChildScrollView(
-          child: Form(
-            key: formkey,
-            child: Column(
-              children: [
-                SizedBox(height: 200,),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: TextFormField(
-                        controller: Name_ctrl,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Enter Any Value";
-                          }
-                        },
-                        decoration: InputDecoration(
-                            hintText: 'Name',
-                            focusColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.black, width: 3),
-                                borderRadius: BorderRadius.circular(5)),
-                            fillColor: Colors.white,
-                            filled: true),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: TextFormField(
-                        controller: Details_ctrl,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Enter Any Value";
-                          }
-                        },
-                        decoration: InputDecoration(
-                            hintText: 'Details',
-                            focusColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.black, width: 3),
-                                borderRadius: BorderRadius.circular(5)),
-                            fillColor: Colors.white,
-                            filled: true),
-                      ),
-                    )
-                  ],
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 90, right: 90),
-                  child: InkWell(
-                    onTap: () {
-                      if (formkey.currentState!.validate()) {
-                        print("Details Submitted");
-                        Add_data_sp();
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return crud_add();
-
-                          },
-                        ));
-
-
-                      }
-                      else{
-                        _showSnackBar(context);
-
-                      }
-
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 390,
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                          child: Text(
-                            'UPDATE',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          title: Text(
+            "NAME:",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 30),
           ),
-        )
+        ),
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left:10,top: 10),
+              child: Card(
+                child: Text(Product!["Product_Details"],
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700,fontSize: 20),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    },
     );
   }
 }
